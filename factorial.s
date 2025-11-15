@@ -2,31 +2,29 @@
 .global _start
 
 # factorial
-# - rdi as input number
-# - rax as result
+# - rdi (n) as input number
+# - rax (r) as result
 factorial:
-    push rbp
-    mov rbp, rsp
-
-    cmp rdi, 1
-    jle base_case      # if n <= 1 return 1
+    cmp rdi, 1         # compare n to 1
+    jle done           # if n <= 1 return (r = 1)
 
     push rdi           # save n
-    dec rdi            # rdi = n-1
-    call factorial     # rax = factorial(n-1)
+    dec rdi            # rdi = n - 1
+    call factorial     # rax = factorial(n - 1)
 
     pop rdx            # rdx = original n
-    imul rax, rdx      # rax = factorial(n-1) * n
+    imul rax, rdx      # rax = factorial(n - 1) * n
     jmp done
 
 base_case:
     mov rax, 1
 
 done:
-    mov rsp, rbp
-    pop rbp
     ret
 
+# prints number as decimal
+# from rax register
+# just to demo, don't explain
 print_rax_digit:
     sub rsp, 16
 
