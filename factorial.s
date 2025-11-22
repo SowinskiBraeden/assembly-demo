@@ -58,7 +58,7 @@ print_rax_digit:
     ret
 
 _start:
-    mov rdi, 5 # Use 5 for our example input
+    mov rdi, 3 # Use 5 for our example input
     mov rax, 1 # Set starting result to 1
 
     call factorial
