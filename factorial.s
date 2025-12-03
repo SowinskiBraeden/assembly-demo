@@ -27,7 +27,6 @@ done:
 # just to demo, don't explain
 print_rax_digit:
     sub rsp, 16
-
     mov rbx, 10
 
     # ones digit
@@ -54,11 +53,21 @@ print_rax_digit:
     mov rdx, 3
     syscall
 
+    # print newline
+    mov rax, 1            # write syscall
+    mov rdi, 1            # stdout
+    lea rsi, [rip+nl]     # pointer to newline
+    mov rdx, 1            # length = 1
+    syscall
+
     add rsp, 16
     ret
 
+nl:
+    .byte 0x0A            # '\n'
+
 _start:
-    mov rdi, 3 # Use 5 for our example input
+    mov rdi, 5 # Use 5 for our example input
     mov rax, 1 # Set starting result to 1
 
     call factorial
