@@ -1,5 +1,9 @@
+# Since we use GNU Assembler, the AT&T Syntax is used
+# to make it more familiar, we have added the following
+# to allow the use of the Intel syntax
 .intel_syntax noprefix # allow mov rax, 1 syntax in GAS (GNU Assembly)
-.global _start
+
+.global _start # Define the entry point to the assembly, where to start executing
 
 # factorial
 # - rdi (n) as input number
@@ -16,9 +20,8 @@ factorial:
     imul rax, rdx      # rax = factorial(n - 1) * n
     jmp done
 
-base_case:
-    mov rax, 1
-
+# done is used to return
+# from the factorial
 done:
     ret
 
@@ -63,16 +66,17 @@ print_rax_digit:
     add rsp, 16
     ret
 
+# new line character
 nl:
     .byte 0x0A            # '\n'
 
+# where the program starts executing
 _start:
     mov rdi, 5 # Use 5 for our example input
     mov rax, 1 # Set starting result to 1
 
-    call factorial
-
-    call print_rax_digit
+    call factorial       # initial factorial call
+    call print_rax_digit # print result to prove it works
 
     mov rax, 60 # syscall exit - 64 bit
     mov rdi, 0  # exit code
